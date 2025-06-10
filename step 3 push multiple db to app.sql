@@ -1,9 +1,7 @@
 USE DATABASE SCHEMAMONITOR;
 
--- You can use this code to push multiple databases to the application
--- This code can be executed in the Snowflake Snowsight UI or in VS Code.
--- This code will pull all databases that are set to DEFAULT_PULL = TRUE in the 
--- _METADATA.SNOWFLAKE_TARGET_DATABASES view
+-- We make the assumption that the application is already installed
+-- and the database is called SCHEMAMONITOR.
 
 DECLARE 
     

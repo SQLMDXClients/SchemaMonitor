@@ -10,16 +10,16 @@ USE DATABASE SCHEMAMONITOR;
 
 -- https://sqlmdx.com/SchemaMonitor/SchemaMonitorVersions
 
--- 1. TRIAL - The application monitors extended parameters of the database for a trial period.
--- 2. BASIC - The application monitors basic parameters of the database.
--- 3. STANDARD - The application monitors standard parameters of the database.
--- 4. EXTENDED - The application monitors extended parameters of the database.
+-- 1. BASIC - The application monitors basic parameters of the database.
+-- 2. STANDARD - The application monitors standard parameters of the database.
+-- 3. EXTENDED - The application monitors extended parameters of the database.
+
+-- 4*. TRIAL - The application monitors extended parameters of the database for a trial period.
 
 
-
--- Following the documentation the ADMIN can authorize the application using the 
--- general authorization.  This means that the APP_USER can choose any database
--- to monitor.  
+-- Following the documentation the APP_ADMIN ROLE can authorize the application 
+-- using the general authorization.  This means that the APP_USER ROLE can choose
+-- any database to monitor.  
 
 -- This procedure authorizes the application to use a database for a specific execution type.
 
@@ -36,9 +36,7 @@ CALL _CODE.APP_AUTHORIZE_GENERAL('STANDARD', 3, '<<SIGNATURE>>');
 -- on each of the three databases.  If someone tries to monitor a database
 -- that is not authorized, the application will not allow it.
 
-CALL _CODE.APP_AUTHORIZE_DATABASE('TRIAL', 'SAMPLE_DATA_DEV', '<<SIGNATURE>>');
-CALL _CODE.APP_AUTHORIZE_DATABASE('TRIAL', 'SAMPLE_DATA_UAT', '<<SIGNATURE>>');
-CALL _CODE.APP_AUTHORIZE_DATABASE('TRIAL', 'SAMPLE_DATA_PROD', '<<SIGNATURE>>');
+CALL _CODE.APP_AUTHORIZE_DATABASE('TRIAL', '<<DATABASE NAME>>', '<<SIGNATURE>>');
 
 
 -- The authorization remains in effect until you revoke the authorization.
@@ -51,6 +49,4 @@ CALL _CODE.APP_AUTHORIZE_DATABASE('TRIAL', 'SAMPLE_DATA_PROD', '<<SIGNATURE>>');
 -- is authorized to monitor the database.  This will return TRUE if the application
 -- is authorized for the database and FALSE if it is not authorized.
 
-CALL _CODE.APP_IS_TOKEN_AVAILABLE('SNOWFLAKE', 'STANDARD', 'SAMPLE_DATA_DEV');
-CALL _CODE.APP_IS_TOKEN_AVAILABLE('SNOWFLAKE', 'TRIAL', 'SAMPLE_DATA_DEV');
-
+CALL _CODE.APP_IS_TOKEN_AVAILABLE('SNOWFLAKE', 'STANDARD', '<<DATABASE NAME>>');

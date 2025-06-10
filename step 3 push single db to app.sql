@@ -1,9 +1,7 @@
 USE DATABASE SCHEMAMONITOR;
 
--- You can use this code to push multiple databases to the application
--- This code can be executed in the Snowflake Snowsight UI or in VS Code.
--- This code will pull all databases that are set to DEFAULT_PULL = TRUE in the 
--- _METADATA.SNOWFLAKE_TARGET_DATABASES view
+-- We make the assumption that the application is already installed
+-- and the database is called SCHEMAMONITOR.
 
 DECLARE 
     
@@ -35,7 +33,11 @@ DECLARE
     
 BEGIN
 
+    -- THIS DOES NOT USE A CURSOR TO STEP THORUGH EACH DATABASE
+    -- INSTEAD IT USES A SINGLE DATABASE NAME
+
     DATABASE_NAME := '<<ENTER THE DATABASE NAME HERE>>';
+    
     SESSION_ID := UUID_STRING();
 
     INSERT INTO _METADATA.SNOWFLAKE_SESSIONS (SESSION_ID, USER, ORGANIZATION_NAME, ACCOUNT_NAME,
